@@ -58,7 +58,7 @@ public:
     
     void pushNextSampleIntoFifo (float sample) noexcept;
     
-    static constexpr auto fftOrder = 10;
+    static constexpr auto fftOrder = 11;
     static constexpr auto fftSize = 1 << fftOrder;
     
     std::array<float, fftSize> fifo;

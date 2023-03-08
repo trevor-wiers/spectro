@@ -61,14 +61,14 @@
       </OUTPUTS>
     </LAYOUT>
   </FILTER>
-  <FILTER uid="6" x="0.49875" y="0.4634615384615385" useARA="0" uiLastX_Normal="-1"
-          uiLastY_Normal="162" uiopen_Normal="1">
+  <FILTER uid="6" x="0.49875" y="0.4634615384615385" useARA="0" uiLastX_Normal="0"
+          uiLastY_Normal="326" uiopen_Normal="1">
     <PLUGIN name="AUAudioFilePlayer" format="AudioUnit" category="Generator"
             manufacturer="Apple" version="1.6.0" file="AudioUnit:Generators/augn,afpl,appl"
-            uniqueId="6163676e" isInstrument="0" fileTime="0" infoUpdateTime="186c2f515a6"
+            uniqueId="6163676e" isInstrument="0" fileTime="0" infoUpdateTime="186c34b367c"
             numInputs="0" numOutputs="2" isShell="0" hasARAExtension="0"
             uid="6163676e"/>
-    <STATE>746.hAGaoMGcv.C1AHv.DTfAGfPBJrfHiPRIovUag4VclE1XzUmbkIGUjEFcg8EDarVPUAkbkMWYzAUYxMWZyQWYtQ2TzEFcksTY4c0b0IFc4AWYWYWYxMWZu4FUzkGbk8EDOXVZrUVKxUlYkIWYtMVYyQkag0VYRDFbvwFPixPDTHcCN7.DXYTZrUlSg0VYWIUYmk1atM2WPvyKUMWYxM2KzIWY18lb2kVYxM2KDU1bqQ2av8xY0kFcgIWKlUmaq0BLw7ULx.iXv01WD8Uago1ax4xcgYGnR2fCRLwWPXzKUMWYxM2KzIWY18lb2kVYxM2KDU1bqQ2av8xarQVKyMFZu8FasH1au0VKhEFbsXWZtQWXmUVKr81av8ULy.iXv0lK2ElcfNcCNTgEWzgWIM2TkwVYiQWYjYTZrU1WPPzKUMWYxM2KzIWY18lb2kVYxM2KDU1bqQ2av8xarQVKyMFZu8FasPlb00VKr81av0xXrUVXt0BZoQ2bekyLhAWatbWX1EJFTmgFavQGdzAHdIUYmk1atQzakMGSu8FbZIUYmk1atQTXzE1WP.QRyMUYrU1XzUFYRU1Yo8laZIUYmk1at4TXsUVBOAAb...........bcYiT3+G...1PQIE9+A..v0kMRg+e...F3ucr2+G..fy8aG68+A...NTTRg+e..P...............................................v8+A............fk7M..2+G..jfVNU1cfHUYmk1atkfDgYFbrAA.RDVcm41zlbBJOXgDVYTZrUFHwXkQowVYfLiUFkFakAhLXUkazkFcrUFY.f..Y.fI.rB.IAPT.jE.dA.b.TG.5Avd.7G.DBPi.TI.TCP0.nc.iD.IArR.5DPfALX.LFvlAXZ.4F.wATr.3HPNBPj.EIfRBvj.QI.VB7k.lIPa........BD..........p...................BXG</STATE>
+    <STATE>1029.hAGaoMGcv.C1AHv.DTfAGfPBJrvJrzhKxvUag4VclE1XzUmbkIGUjEFcg8EDarVPUAkbkMWYzAUYxMWZyQWYtQ2TzEFcksTY4c0b0IFc4AWYWYWYxMWZu4FUzkGbk8EDOXVZrUVKxUlYkIWYtMVYyQkag0VYRDFbvwFPixfFgHcCN7.DXYTZrUlSg0VYWIUYmk1atM2WPvyKUMWYxM2KzIWY18lb2kVYxM2KDU1bqQ2av8xY0kFcgIWKlUmaq0BLw7ULx.iXv01WD8Uago1ax4xcgYWnQPsDSPQEVbgEY3kTkcVZu4FQuU1bL81avokTkcVZu4FQgQWXeAADIM2TkwVYiQWYjIUYmk1atokTkcVZu4lSg0VYI7DDvA..........RX7.Rf+e...XiOIU3+G...W+3QE9+A..3G86+d+e...FQ+9u2+G...33SRE9+A..A...............................................2+G.............PDq..b+e..PBZ4TY2AhTkcVZu4lzM3vFb7EDF8RUyUlby8BcxUlcuI2coUlby8BQkM2Zz8Fbu7Faj0xbig1auwVKh81as0hXgAWK1klazE1Yk0Bau8FbeEyLvHFbs4xcgYWncPsDSPQEV7gEYjvSP.G..........fezu+68+A...PxkDD........v+......L4.A..fA..fDuK...X....jbIAA....D....P............................................................9D.......ILcCNHxHjXgWIM2TkwVYiQWYjYTZrU1WPPzKUMWYxM2KzIWY18lb2kVYxM2KDU1bqQ2av8xarQVKyMFZu8FasPlb00VKr81av0xXrUVXt0BZoQ2bekyLhAWatbWX1EZITKwDTTgEmXQJI7DDvA..........v0kMRg+e...XCEkT3+G...WW1HE9+A..Xf+1wd+e...N2ucr2+G...3PQIE9+A..A...............................................2+G.............Vx2..b+e..PBZ4TY2AhTkcVZu4VBRDlYvwFD.HQX0claS+BLw7vHaXkQowVYfDiUFkFakAxLVYTZrUFHxfUUtQWZzwVYjA.B.jA.l.vJ.jD.QAPV.3E.vAPc.nG.6Ave.PH.MBPk.PM.VCv2.3N.4G.CAbQ.XDvhAvX.WF.mATd.mG.7ADu.jIPYBvl.6IfvBPr.MKfyCDz.BMPSC3z.SMPUCn0.gM.ZC71.1A.......HP..........LC..................Lve</STATE>
     <LAYOUT>
       <INPUTS/>
       <OUTPUTS>
@@ -77,10 +77,10 @@
     </LAYOUT>
   </FILTER>
   <FILTER uid="7" x="0.5024999999999999" y="0.6480769230769231" useARA="0"
-          uiLastX_Normal="468" uiLastY_Normal="130" uiopen_Normal="1">
+          uiLastX_Normal="348" uiLastY_Normal="326" uiopen_Normal="1">
     <PLUGIN name="spectro" format="VST3" category="Fx|Analyzer|Tools" manufacturer="T.T.Dynamics"
             version="1.0.0" file="/Users/trevorwiers/Library/Audio/Plug-Ins/VST3/spectro.vst3"
-            uniqueId="4a8a322" isInstrument="0" fileTime="186c2bf6cae" infoUpdateTime="186c2f515a6"
+            uniqueId="4a8a322" isInstrument="0" fileTime="186c2bf6cae" infoUpdateTime="186c34b367c"
             numInputs="2" numOutputs="2" isShell="0" hasARAExtension="0"
             uid="acfd670a"/>
     <STATE>191.VMjLgXK....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9XCLt3hKt3hKt3hKt3hYRUUSTEETIckVwTjQisVTTgkdEYjKAQjYPQSPWgUdMcjKAQjct3hdA4hKt3hKt3hKtnTUv.UQAslXuk0UXoWUFE0YQcEV77RRC8Vav8lak4Fc9vyKVMEUy.Ea0cVZtMEcgQWY9..</STATE>

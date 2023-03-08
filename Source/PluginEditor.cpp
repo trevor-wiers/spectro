@@ -16,9 +16,9 @@ SpectroAudioProcessorEditor::SpectroAudioProcessorEditor (SpectroAudioProcessor&
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
 //    setOpaque(true);
-    startTimerHz(60);
+    startTimerHz(audioProcessor.getSampleRate());
     
-    setSize (700, 500);
+    setSize (512, 512);
 }
 
 SpectroAudioProcessorEditor::~SpectroAudioProcessorEditor()
@@ -69,6 +69,6 @@ void SpectroAudioProcessorEditor::drawNextLineOfSpectrogram()
         auto fftDataIndex = (size_t) juce::jlimit (0, audioProcessor.fftSize / 2, (int) (skewedProportionY * audioProcessor.fftSize / 2));
         auto level = juce::jmap (audioProcessor.fftData[fftDataIndex], 0.0f, juce::jmax (maxLevel.getEnd(), 1e-5f), 0.0f, 1.0f);
         
-        spectrogramImage.setPixelAt (rightHandEdge, y, juce::Colour::fromHSV (level, 1.0f, level, 1.0f));
+        spectrogramImage.setPixelAt (rightHandEdge, y, juce::Colour::fromHSV (.5f, 1.0f, level, 1.0f));
     }
 }

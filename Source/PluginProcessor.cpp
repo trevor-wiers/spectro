@@ -145,13 +145,16 @@ void SpectroAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
     
-    if (totalNumInputChannels > 0)
+    juce::AudioBuffer<float> monoBuffer;
+    monoBuffer.makeCopyOf(buffer, false);
+    monoBuffer.addFrom(0, 0, monoBuffer, 1, 0, monoBuffer.getNumSamples());
+    monoBuffer.addFrom(1, 0, monoBuffer, 0, 0, monoBuffer.getNumSamples());
+    monoBuffer.applyGain(0.5f);
+    
+    auto* channelData = monoBuffer.getReadPointer(0);
+    for (auto i = 0; i < buffer.getNumSamples(); ++i)
     {
-        auto* channelData = buffer.getReadPointer(0);
-        for (auto i = 0; i < buffer.getNumSamples(); ++i)
-        {
-            pushNextSampleIntoFifo(channelData[i]);
-        }
+        pushNextSampleIntoFifo(channelData[i]);
     }
 }
 
