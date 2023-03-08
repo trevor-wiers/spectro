@@ -177,7 +177,22 @@ void SpectroAudioProcessor::setStateInformation (const void* data, int sizeInByt
     // whose contents will have been created by the getStateInformation() call.
 }
 
-
+void SpectroAudioProcessor::pushNextSampleIntoFifo (float sample) noexcept
+{
+    // if the fifo contains enough data, set a flag to say
+    // that the next line should now be rendered..
+    if (fifoIndex == fftSize)
+    {
+        if (! nextFFTBlockReady)
+        {
+            std::fill (fftData.begin(), fftData.end(), 0.0f);
+            std::copy (fifo.begin(), fifo.end(), fftData.end());
+            nextFFTBlockReady = true;
+        }
+        fifoIndex = 0;
+    }
+    fifo[(size_t) fifoIndex++] = sample;
+}
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
