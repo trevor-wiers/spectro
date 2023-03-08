@@ -19,9 +19,9 @@ SpectroAudioProcessor::SpectroAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
 #endif
-
+forwardFFT (fftOrder)
 {
 }
 
@@ -144,11 +144,14 @@ void SpectroAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce
     // this code if your algorithm always overwrites all the output channels.
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
-
-    auto* channelData = buffer.getReadPointer(0);
-    for (auto i = 0; i < buffer.getNumSamples(); ++i)
+    
+    if (totalNumInputChannels > 0)
     {
-        pushNextSampleIntoFifo(channelData[i]);
+        auto* channelData = buffer.getReadPointer(0);
+        for (auto i = 0; i < buffer.getNumSamples(); ++i)
+        {
+            pushNextSampleIntoFifo(channelData[i]);
+        }
     }
 }
 
@@ -186,7 +189,8 @@ void SpectroAudioProcessor::pushNextSampleIntoFifo (float sample) noexcept
         if (! nextFFTBlockReady)
         {
             std::fill (fftData.begin(), fftData.end(), 0.0f);
-            std::copy (fifo.begin(), fifo.end(), fftData.end());
+            std::copy (fifo.begin(), fifo.end(), fftData.begin());
+            forwardFFT.performFrequencyOnlyForwardTransform(fftData.data());
             nextFFTBlockReady = true;
         }
         fifoIndex = 0;

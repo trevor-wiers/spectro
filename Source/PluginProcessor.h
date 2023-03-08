@@ -10,9 +10,6 @@
 
 #include <JuceHeader.h>
 
-static constexpr auto fftOrder = 10;
-static constexpr auto fftSize = 1 << fftOrder;
-
 //==============================================================================
 /**
 */
@@ -61,13 +58,16 @@ public:
     
     void pushNextSampleIntoFifo (float sample) noexcept;
     
+    static constexpr auto fftOrder = 10;
+    static constexpr auto fftSize = 1 << fftOrder;
+    
     std::array<float, fftSize> fifo;
     std::array<float, fftSize * 2> fftData;
     int fifoIndex = 0;
     bool nextFFTBlockReady = false;
+    juce::dsp::FFT forwardFFT;
     
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpectroAudioProcessor)
-    
 };

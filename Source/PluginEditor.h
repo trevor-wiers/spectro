@@ -31,7 +31,6 @@ private:
     // access the processor object that created it.
     SpectroAudioProcessor& audioProcessor;
     
-    juce::dsp::FFT forwardFFT;
     juce::Image spectrogramImage;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpectroAudioProcessorEditor)

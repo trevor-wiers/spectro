@@ -11,11 +11,11 @@
 
 //==============================================================================
 SpectroAudioProcessorEditor::SpectroAudioProcessorEditor (SpectroAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p), forwardFFT (fftOrder), spectrogramImage (juce::Image::RGB, 512, 512, true)
+    : AudioProcessorEditor (&p), audioProcessor (p), spectrogramImage (juce::Image::RGB, 512, 512, true)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setOpaque(true);
+//    setOpaque(true);
     startTimerHz(60);
     
     setSize (700, 500);
@@ -60,16 +60,13 @@ void SpectroAudioProcessorEditor::drawNextLineOfSpectrogram()
     //first shuffle image foward
     spectrogramImage.moveImageSection(0, 0, 1, 0, rightHandEdge, imageHeight);
     
-    //render FFT data
-    forwardFFT.performFrequencyOnlyForwardTransform(audioProcessor.fftData.data());
-    
     // find value range to scale
-    auto maxLevel = juce::FloatVectorOperations::findMinAndMax (audioProcessor.fftData.data(), fftSize / 2);
+    auto maxLevel = juce::FloatVectorOperations::findMinAndMax (audioProcessor.fftData.data(), audioProcessor.fftSize / 2);
     
     for (auto y = 1; y < imageHeight; ++y)
     {
         auto skewedProportionY = 1.0f - std::exp (std::log ((float) y / (float) imageHeight) * 0.2f);
-        auto fftDataIndex = (size_t) juce::jlimit (0, fftSize / 2, (int) (skewedProportionY * fftSize / 2));
+        auto fftDataIndex = (size_t) juce::jlimit (0, audioProcessor.fftSize / 2, (int) (skewedProportionY * audioProcessor.fftSize / 2));
         auto level = juce::jmap (audioProcessor.fftData[fftDataIndex], 0.0f, juce::jmax (maxLevel.getEnd(), 1e-5f), 0.0f, 1.0f);
         
         spectrogramImage.setPixelAt (rightHandEdge, y, juce::Colour::fromHSV (level, 1.0f, level, 1.0f));
