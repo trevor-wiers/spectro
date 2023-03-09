@@ -58,12 +58,12 @@ public:
     
     void pushNextSampleIntoFifo (float sample) noexcept;
     
-    static constexpr auto fftOrder = 11;
+    static constexpr auto fftOrder = 13;
     static constexpr auto fftSize = 1 << fftOrder;
     
     std::array<float, fftSize> fifo;
     std::array<float, fftSize * 2> fftData;
-    int fifoIndex = 0;
+    int fifoIndex = fftSize - 512;
     bool nextFFTBlockReady = false;
     juce::dsp::FFT forwardFFT;
     

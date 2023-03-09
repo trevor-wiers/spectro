@@ -196,7 +196,12 @@ void SpectroAudioProcessor::pushNextSampleIntoFifo (float sample) noexcept
             forwardFFT.performFrequencyOnlyForwardTransform(fftData.data());
             nextFFTBlockReady = true;
         }
-        fifoIndex = 0;
+        for (auto i = 0; i < fftSize - 512; ++i)
+        {
+            fifo[i] = fifo[i + 512];
+        }
+        fifoIndex = fftSize - 512;
+//        fifoIndex = 0;
     }
     fifo[(size_t) fifoIndex++] = sample;
 }
