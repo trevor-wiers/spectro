@@ -21,7 +21,8 @@ SpectroAudioProcessor::SpectroAudioProcessor()
                      #endif
                        ),
 #endif
-forwardFFT (fftOrder)
+forwardFFT (fftOrder),
+window (fftSize, juce::dsp::WindowingFunction<float>::hann)
 {
 }
 
@@ -191,9 +192,13 @@ void SpectroAudioProcessor::pushNextSampleIntoFifo (float sample) noexcept
     {
         if (! nextFFTBlockReady)
         {
-            std::fill (fftData.begin(), fftData.end(), 0.0f);
-            std::copy (fifo.begin(), fifo.end(), fftData.begin());
-            forwardFFT.performFrequencyOnlyForwardTransform(fftData.data());
+//            std::fill (fftData.begin(), fftData.end(), 0.0f);
+//            std::copy (fifo.begin(), fifo.end(), fftData.begin());
+            juce::zeromem (fftData, sizeof (fftData));
+            memcpy (fftData, fifo, sizeof (fifo));
+            window.multiplyWithWindowingTable(fftData, fftSize);
+//            forwardFFT.performFrequencyOnlyForwardTransform(fftData.data());
+            forwardFFT.performFrequencyOnlyForwardTransform (fftData);
             nextFFTBlockReady = true;
         }
         for (auto i = 0; i < fftSize - 512; ++i)

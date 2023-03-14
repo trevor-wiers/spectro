@@ -95,6 +95,18 @@ void SpectroAudioProcessorEditor::drawNextLineOfSpectrogram()
 //    }
     
     //third drawing method
-    
-    
+    auto mindB = -100.0f;
+    auto maxdB =    0.0f;
+
+    for (int i = 0; i < imageHeight; ++i)
+    {
+        auto skewedProportionX = 1.0f - std::exp (std::log (1.0f - (float) i / (float) imageHeight) * 0.2f);
+        auto fftDataIndex = juce::jlimit (0, audioProcessor.fftSize / 2, (int) (skewedProportionX * (float) audioProcessor.fftSize * 0.5f));
+        auto level = juce::jmap (juce::jlimit (mindB, maxdB, juce::Decibels::gainToDecibels (audioProcessor.fftData[fftDataIndex])
+                                                           - juce::Decibels::gainToDecibels ((float) audioProcessor.fftSize)),
+                                 mindB, maxdB, 0.0f, 1.0f);
+
+        spectrogramImage.setPixelAt (rightHandEdge, imageHeight - i, juce::Colour::fromHSV (.5f, 1.0f, level, 1.0f));
+    }
+
 }
