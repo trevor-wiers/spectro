@@ -192,12 +192,9 @@ void SpectroAudioProcessor::pushNextSampleIntoFifo (float sample) noexcept
     {
         if (! nextFFTBlockReady)
         {
-//            std::fill (fftData.begin(), fftData.end(), 0.0f);
-//            std::copy (fifo.begin(), fifo.end(), fftData.begin());
             juce::zeromem (fftData, sizeof (fftData));
             memcpy (fftData, fifo, sizeof (fifo));
             window.multiplyWithWindowingTable(fftData, fftSize);
-//            forwardFFT.performFrequencyOnlyForwardTransform(fftData.data());
             forwardFFT.performFrequencyOnlyForwardTransform (fftData);
             nextFFTBlockReady = true;
         }

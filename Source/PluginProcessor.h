@@ -61,11 +61,8 @@ public:
     static constexpr auto fftOrder = 12;
     static constexpr auto fftSize = 1 << fftOrder;
     
-//    std::array<float, fftSize> fifo;
-//    std::array<float, fftSize * 2> fftData;
     float fifo [fftSize];
     float fftData [fftSize * 2];
-//    int fifoIndex = fftSize - 512;
     int fifoIndex = 0;
     bool nextFFTBlockReady = false;
     juce::dsp::FFT forwardFFT;
