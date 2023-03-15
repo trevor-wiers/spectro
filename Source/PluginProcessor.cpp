@@ -205,8 +205,8 @@ void SpectroAudioProcessor::pushNextSampleIntoFifo (float sample [2][1]) noexcep
         fifoIndex = fftSize - 512;
 //        fifoIndex = 0;
     }
-    fifo[0][fifoIndex++] = sample[0][0];
-    fifo[1][fifoIndex] = sample[1][0];
+    fifo[0][fifoIndex] = sample[0][0];
+    fifo[1][fifoIndex++] = sample[1][0];
 }
 //==============================================================================
 // This creates new instances of the plugin..
