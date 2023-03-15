@@ -136,7 +136,7 @@ void SpectroAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
-
+    
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
     // guaranteed to be empty - they may contain garbage).
@@ -146,16 +146,12 @@ void SpectroAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
     
-    juce::AudioBuffer<float> monoBuffer;
-    monoBuffer.makeCopyOf(buffer, false);
-    monoBuffer.addFrom(0, 0, monoBuffer, 1, 0, monoBuffer.getNumSamples());
-    monoBuffer.addFrom(1, 0, monoBuffer, 0, 0, monoBuffer.getNumSamples());
-    monoBuffer.applyGain(0.5f);
-    
-    auto* channelData = monoBuffer.getReadPointer(0);
+    auto* channelDataLeft = buffer.getReadPointer(0);
+    auto* channelDataRight = buffer.getReadPointer(1);
     for (auto i = 0; i < buffer.getNumSamples(); ++i)
     {
-        pushNextSampleIntoFifo(channelData[i]);
+        float sample [2][1] = {{channelDataLeft[i]}, {channelDataRight[i]}};
+        pushNextSampleIntoFifo(sample);
     }
 }
 
@@ -184,7 +180,7 @@ void SpectroAudioProcessor::setStateInformation (const void* data, int sizeInByt
     // whose contents will have been created by the getStateInformation() call.
 }
 
-void SpectroAudioProcessor::pushNextSampleIntoFifo (float sample) noexcept
+void SpectroAudioProcessor::pushNextSampleIntoFifo (float sample [2][1]) noexcept
 {
     // if the fifo contains enough data, set a flag to say
     // that the next line should now be rendered..
@@ -193,19 +189,24 @@ void SpectroAudioProcessor::pushNextSampleIntoFifo (float sample) noexcept
         if (! nextFFTBlockReady)
         {
             juce::zeromem (fftData, sizeof (fftData));
-            memcpy (fftData, fifo, sizeof (fifo));
-            window.multiplyWithWindowingTable(fftData, fftSize);
-            forwardFFT.performFrequencyOnlyForwardTransform (fftData);
+            memcpy (fftData[0], fifo[0], sizeof (fifo[0]));
+            memcpy (fftData[1], fifo[1], sizeof (fifo[1]));
+            window.multiplyWithWindowingTable(fftData[0], fftSize);
+            forwardFFT.performFrequencyOnlyForwardTransform (fftData[0]);
+            window.multiplyWithWindowingTable(fftData[1], fftSize);
+            forwardFFT.performFrequencyOnlyForwardTransform (fftData[1]);
             nextFFTBlockReady = true;
         }
         for (auto i = 0; i < fftSize - 512; ++i)
         {
-            fifo[i] = fifo[i + 512];
+            fifo[0][i] = fifo[0][i + 512];
+            fifo[1][i] = fifo[1][i + 512];
         }
         fifoIndex = fftSize - 512;
 //        fifoIndex = 0;
     }
-    fifo[(size_t) fifoIndex++] = sample;
+    fifo[0][fifoIndex++] = sample[0][0];
+    fifo[1][fifoIndex] = sample[1][0];
 }
 //==============================================================================
 // This creates new instances of the plugin..

@@ -56,13 +56,13 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
-    void pushNextSampleIntoFifo (float sample) noexcept;
+    void pushNextSampleIntoFifo (float sample [2][1]) noexcept;
     
     static constexpr auto fftOrder = 12;
     static constexpr auto fftSize = 1 << fftOrder;
     
-    float fifo [fftSize];
-    float fftData [fftSize * 2];
+    float fifo [2][fftSize];
+    float fftData [2][fftSize * 2];
     int fifoIndex = 0;
     bool nextFFTBlockReady = false;
     juce::dsp::FFT forwardFFT;
