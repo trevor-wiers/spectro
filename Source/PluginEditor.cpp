@@ -20,7 +20,7 @@ SpectroAudioProcessorEditor::SpectroAudioProcessorEditor (SpectroAudioProcessor&
 //    setOpaque(true);
     startTimerHz(44100);
     
-    setSize (512, 512);
+    setSize (512, 564);
 }
 
 SpectroAudioProcessorEditor::~SpectroAudioProcessorEditor()
@@ -34,8 +34,17 @@ void SpectroAudioProcessorEditor::paint (juce::Graphics& g)
     g.fillAll (juce::Colours::black);
 
     g.setOpacity (1.0f);
-    g.drawImage (spectrogramImage, getLocalBounds().toFloat());
-
+    auto bounds = getLocalBounds();
+    auto rightChanTextBounds = bounds.removeFromTop(bounds.getHeight() * .05);
+    auto leftChanTextBounds = bounds.removeFromBottom(bounds.getHeight() * .05);
+     
+    g.drawImage (spectrogramImage, bounds.toFloat());
+    g.setFont(12.f);
+    g.setColour(juce::Colours::white);
+    juce::String rightChanText = "Right Channel";
+    g.drawText(rightChanText, rightChanTextBounds, juce::Justification::verticallyCentred);
+    juce::String leftChanText = "Left Channel";
+    g.drawText(leftChanText, leftChanTextBounds, juce::Justification::verticallyCentred);
 }
 
 void SpectroAudioProcessorEditor::resized()
