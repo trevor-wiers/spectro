@@ -97,6 +97,7 @@ void SpectroAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBloc
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    juce::zeromem(fifo, sizeof(fifo));
 }
 
 void SpectroAudioProcessor::releaseResources()
@@ -189,24 +190,28 @@ void SpectroAudioProcessor::pushNextSampleIntoFifo (float sample [2][1]) noexcep
         if (! nextFFTBlockReady)
         {
             juce::zeromem (fftData, sizeof (fftData));
-            memcpy (fftData[0], fifo[0], sizeof (fifo[0]));
-            memcpy (fftData[1], fifo[1], sizeof (fifo[1]));
-            window.multiplyWithWindowingTable(fftData[0], fftSize);
-            forwardFFT.performFrequencyOnlyForwardTransform (fftData[0]);
-            window.multiplyWithWindowingTable(fftData[1], fftSize);
-            forwardFFT.performFrequencyOnlyForwardTransform (fftData[1]);
+            for (auto i = 0; i < 2; ++i)
+            {
+                memcpy (fftData[i], fifo[i], sizeof (fifo[i]));
+                window.multiplyWithWindowingTable(fftData[i], fftSize);
+                forwardFFT.performFrequencyOnlyForwardTransform (fftData[i]);
+            }
             nextFFTBlockReady = true;
         }
         for (auto i = 0; i < fftSize - 512; ++i)
         {
-            fifo[0][i] = fifo[0][i + 512];
-            fifo[1][i] = fifo[1][i + 512];
+            for (auto j = 0; j < 2; ++j)
+            {
+                fifo[j][i] = fifo[j][i + 512];
+            }
         }
         fifoIndex = fftSize - 512;
-//        fifoIndex = 0;
     }
-    fifo[0][fifoIndex] = sample[0][0];
-    fifo[1][fifoIndex++] = sample[1][0];
+    for (auto i = 0; i < 2; ++i)
+    {
+        fifo[i][fifoIndex] = sample[i][0];
+    }
+    ++fifoIndex;
 }
 //==============================================================================
 // This creates new instances of the plugin..

@@ -63,7 +63,7 @@ public:
     
     float fifo [2][fftSize];
     float fftData [2][fftSize * 2];
-    int fifoIndex = 0;
+    int fifoIndex = fftSize - 512;
     bool nextFFTBlockReady = false;
     juce::dsp::FFT forwardFFT;
     juce::dsp::WindowingFunction<float> window;
