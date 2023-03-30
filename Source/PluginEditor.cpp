@@ -17,8 +17,7 @@ SpectroAudioProcessorEditor::SpectroAudioProcessorEditor (SpectroAudioProcessor&
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-//    setOpaque(true);
-    startTimerHz(44100);
+    startTimerHz(1000);
     
     setSize (512, 564);
 }
