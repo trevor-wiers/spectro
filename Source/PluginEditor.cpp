@@ -82,7 +82,7 @@ void SpectroAudioProcessorEditor::drawNextLineOfSpectrogram()
             auto level = juce::jmap (juce::jlimit (mindB, maxdB, juce::Decibels::gainToDecibels (audioProcessor.fftData[j][fftDataIndex])
                                                                - juce::Decibels::gainToDecibels ((float) audioProcessor.fftSize)),
                                      mindB, maxdB, 0.0f, 1.0f);
-            auto stereoShift = (1 - j) * (imageHeight / 2);
+            auto stereoShift = j * (imageHeight / 2);
             spectrogramImage.setPixelAt (rightHandEdge, imageHeight - i - stereoShift, juce::Colour::fromHSV (.5f, 1.0f - level, level, 1.0f));
         }
     }
